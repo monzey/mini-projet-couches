@@ -4,11 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controllers.CtrAchatVente;
+import controllers.CtrPrincipal;
+
 public class FenetreVente extends JFrame implements ActionListener {
 
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	private CtrAchatVente ctrlAchVent;
 
 	public FenetreVente(String[] lesProduits) {
 		setTitle("Vente");
@@ -23,7 +27,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
-		contentPane.add(new JLabel("Quantit� vendue"));
+		contentPane.add(new JLabel("Quantité vendue"));
 		contentPane.add(txtQuantite);
 		contentPane.add(btVente);
 

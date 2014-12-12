@@ -6,11 +6,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Catalogue implements I_Catalogue {
+	
+	
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	private ArrayList<I_Produit> lesProduits;
 
 	public Catalogue() {
 		lesProduits = new ArrayList<I_Produit>();
+	}
+	
+	public ArrayList<I_Produit> getProduits(){
+		return this.lesProduits;
 	}
 
 	@Override

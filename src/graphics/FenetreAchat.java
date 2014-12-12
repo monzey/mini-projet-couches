@@ -4,14 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FenetreAchat extends JFrame implements ActionListener {
+import controllers.CtrAchatVente;
+import controllers.CtrPrincipal;
+
+public class FenetreAchat extends FenetrePrincipale implements ActionListener {
 
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	private CtrAchatVente ctrlAchVent;
 
 	public FenetreAchat(String[] lesProduits) {
 
+		this.ctrlAchVent = this.ctrl.createCtrAchVent();
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -24,7 +29,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
-		contentPane.add(new JLabel("Quantit� achet�e"));
+		contentPane.add(new JLabel("Quantité achetée"));
 		contentPane.add(txtQuantite);
 		contentPane.add(btAchat);
 
@@ -34,6 +39,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		this.ctrlAchVent.acheterProduit((String)combo.getSelectedItem(), Integer.valueOf(txtQuantite.getText()));
 		this.dispose();
 	}
 

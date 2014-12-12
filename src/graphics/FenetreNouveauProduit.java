@@ -4,7 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FenetreNouveauProduit extends JFrame implements ActionListener {
+import controllers.CtrAchatVente;
+import controllers.CtrPrincipal;
+import controllers.CtrProduit;
+
+public class FenetreNouveauProduit extends FenetrePrincipale implements ActionListener {
 
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
@@ -12,9 +16,13 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 //	private JComboBox<String> combo;
 	private JButton btValider;
 
+	private CtrProduit ctrlProd;
+	
+
 //	public FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit() {	
 
+		this.ctrlProd = this.ctrl.createCtrProduit();
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
 		Container contentPane = getContentPane();
@@ -22,7 +30,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
-		JLabel labQte = new JLabel("Quantit� en stock");
+		JLabel labQte = new JLabel("Quantité en stock");
 //		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
@@ -48,6 +56,11 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		try{
+			this.ctrlProd.creerProduit(txtNom.getText(), Integer.valueOf(txtPrixHT.getText()), Integer.valueOf(txtQte.getText()));
+		} catch(NumberFormatException ex){
+			System.out.println("Ce n'est pas un nombre");
+		}
 		this.dispose();
 	}
 
