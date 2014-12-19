@@ -14,9 +14,9 @@ public class FenetreAchat extends FenetrePrincipale implements ActionListener {
 	private JComboBox<String> combo;
 	private CtrAchatVente ctrlAchVent;
 
-	public FenetreAchat(String[] lesProduits) {
+	public FenetreAchat(String[] lesProduits, CtrPrincipal ctr) {
 
-		this.ctrlAchVent = this.ctrl.createCtrAchVent();
+		this.ctrlAchVent = ctr.createCtrAchVent();
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();

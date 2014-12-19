@@ -14,7 +14,8 @@ public class FenetreVente extends JFrame implements ActionListener {
 	private JComboBox<String> combo;
 	private CtrAchatVente ctrlAchVent;
 
-	public FenetreVente(String[] lesProduits) {
+	public FenetreVente(String[] lesProduits, CtrPrincipal ctr) {
+		this.ctrlAchVent = ctr.createCtrAchVent();
 		setTitle("Vente");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -36,6 +37,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		this.ctrlAchVent.vendreProduit((String)combo.getSelectedItem(), Integer.valueOf(txtQuantite.getText()));
 		this.dispose();
 	}
 

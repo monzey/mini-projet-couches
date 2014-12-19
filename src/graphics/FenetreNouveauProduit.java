@@ -8,7 +8,7 @@ import controllers.CtrAchatVente;
 import controllers.CtrPrincipal;
 import controllers.CtrProduit;
 
-public class FenetreNouveauProduit extends FenetrePrincipale implements ActionListener {
+public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
@@ -20,9 +20,9 @@ public class FenetreNouveauProduit extends FenetrePrincipale implements ActionLi
 	
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit() {	
+	public FenetreNouveauProduit(CtrPrincipal ctr) {	
 
-		this.ctrlProd = this.ctrl.createCtrProduit();
+		this.ctrlProd = ctr.createCtrProduit();
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
 		Container contentPane = getContentPane();

@@ -14,9 +14,9 @@ public class FenetreAffichage extends FenetrePrincipale implements ActionListene
 
 	private CtrStocks ctrlStcks;
 	
-	public FenetreAffichage() {
+	public FenetreAffichage(CtrPrincipal ctr) {
 
-		this.ctrlStcks = this.ctrl.createCtrStcks();
+		this.ctrlStcks = ctr.createCtrStcks();
 		setTitle("Affichage");
 		setBounds(500, 500, 450, 250);
 		JPanel panHaut = new JPanel();

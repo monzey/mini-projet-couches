@@ -7,16 +7,16 @@ import javax.swing.*;
 import controllers.CtrPrincipal;
 import controllers.CtrProduit;
 
-public class FenetreSuppressionProduit extends FenetrePrincipale implements ActionListener {
+public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
 	
 	private CtrProduit ctrlProd;
 	
-	public FenetreSuppressionProduit(String lesProduits[]) {
+	public FenetreSuppressionProduit(String lesProduits[], CtrPrincipal ctr) {
 		
-		this.ctrlProd = this.ctrl.createCtrProduit();
+		this.ctrlProd = ctr.createCtrProduit();
 		setTitle("Suppression produit");
 		setBounds(500, 500, 200, 105);
 		Container contentPane = getContentPane();
