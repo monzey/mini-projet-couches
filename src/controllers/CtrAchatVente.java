@@ -18,7 +18,7 @@ public class CtrAchatVente{
 	}
 
 	public boolean vendreProduit(String nomProduit, Integer qteVendue) {
-		return this.cat.acheterStock(nomProduit, qteVendue);
+		return this.cat.vendreStock(nomProduit, qteVendue);
 	}
 
 }

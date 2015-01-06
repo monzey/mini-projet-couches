@@ -8,7 +8,7 @@ import controllers.CtrAchatVente;
 import controllers.CtrPrincipal;
 import controllers.CtrStocks;
 
-public class FenetreAffichage extends FenetrePrincipale implements ActionListener {
+public class FenetreAffichage extends JFrame implements ActionListener {
 
 	private JButton btOK;
 

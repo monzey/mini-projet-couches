@@ -7,7 +7,7 @@ import javax.swing.*;
 import controllers.CtrAchatVente;
 import controllers.CtrPrincipal;
 
-public class FenetreAchat extends FenetrePrincipale implements ActionListener {
+public class FenetreAchat extends JFrame implements ActionListener {
 
 	private JButton btAchat;
 	private JTextField txtQuantite;
