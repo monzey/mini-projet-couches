@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.I_Produit;
+import entities.Produit;
 
 public class ProduitDAO_Oracle  implements I_ProduitDAO{
 
@@ -16,8 +18,6 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 
 	private Connection cn;
 	private PreparedStatement pst;
-	private ResultSet result;
-
 
 	public ProduitDAO_Oracle() {
 
@@ -60,15 +60,12 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 			pst = cn.prepareStatement("UPDATE Produit" +
 									  "SET (stockProduit=? , prixHTProduit=?)" +
 									  "WHERE (nomProduit = ?");
-			pst.setString(3, p.getNom());
 			pst.setInt(1, p.getQuantite());
 			pst.setDouble(2, p.getPrixUnitaireHT());
-			
-			
+			pst.setString(3, p.getNom());
 			
 			if(pst.executeUpdate() == 1) return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -77,21 +74,60 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 
 	@Override
 	public boolean supprimer(I_Produit p) {
-		// TODO Auto-generated method stub
+		try {
+			pst = cn.prepareStatement("DELETE FROM Produit WHERE nomProduit = ?");
+			pst.setString(1, p.getNom());
+			
+			if(pst.executeUpdate() == 1) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 
 	@Override
 	public I_Produit lire(String nom) {
-		// TODO Auto-generated method stub
+		try {
+			ResultSet rs;
+			Produit prod;
+			pst = cn.prepareStatement("SELECT * FROM Produit WHERE nomProduit = ? ");
+			pst.setString(1, nom);
+			rs = pst.executeQuery();
+			if ( rs.next() ){
+				String nomProd = rs.getString("nomProduit");
+				int stockProd = rs.getInt("stockProduit");
+				Double prixHT = rs.getDouble("prixHTProduit");
+				prod = new Produit(nomProd, prixHT, stockProd);
+				return prod;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 
 	@Override
 	public List<I_Produit> lireTous() {
-		// TODO Auto-generated method stub
+		try {
+			ResultSet rs;
+			ArrayList<I_Produit> listProd = new ArrayList<I_Produit>();
+			pst = cn.prepareStatement("SELECT * FROM Produit");
+			rs = pst.executeQuery();
+			while ( rs.next() ){
+				String nomProd = rs.getString("nomProduit");
+				int stockProd = rs.getInt("stockProduit");
+				Double prixHT = rs.getDouble("prixHTProduit");
+				Produit prod = new Produit(nomProd, prixHT, stockProd);
+				listProd.add(prod);
+			}
+			return listProd;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
+	
 }
