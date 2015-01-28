@@ -549,15 +549,11 @@ public class CatalogueTest {
 		cat.addProduit("Twix", 10.47, 2);
 		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calcul� avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
 	}
-	
-//	@Test
-//	public void testClear() {
-//		cat.addProduit("Mars", 10, 5);
-//		cat.addProduit("Treets", 10, 4);
-//		cat.clear();
-//		ArrayList<I_Produit> nullArray = new ArrayList<I_Produit>();
-//		assertTrue(nullArray == ((Catalogue)cat).getProduits());
-//	}
+
+	@Test
+	public void testDAOFactory() {
+		
+	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {
 		try {
