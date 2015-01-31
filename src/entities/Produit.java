@@ -1,10 +1,12 @@
 package entities;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class Produit implements I_Produit {
 	private static double tauxTVA = 0.2;
-	private static DecimalFormat df = new DecimalFormat("0.00");
+	private static DecimalFormat df;
 
 	private String nom;
 	private int quantiteStock;
@@ -14,6 +16,8 @@ public class Produit implements I_Produit {
 		this.nom = nomProduit;
 		this.quantiteStock = quantiteInitiale;
 		this.prixUnitaireHT = prixUnitaireHTProduit;
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRANCE);
+		df = new DecimalFormat("0.00", otherSymbols);
 	}
 	
 	public Produit(String nomProduit) {

@@ -11,23 +11,19 @@ import java.util.List;
 import entities.I_Produit;
 import entities.Produit;
 
-public class ProduitDAO_Oracle  implements I_ProduitDAO{
+public class ProduitDAO_Mysql implements I_ProduitDAO {
 
 	private Connection cn;
 	private PreparedStatement pst;
-
-	public ProduitDAO_Oracle() {
-
+	
+	public ProduitDAO_Mysql() {
 		try {
 			String url,login,password;
-			Class.forName("oracle.jdbc.OracleDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 
-			url = "jdbc:oracle:thin:@162.38.222.146:1521";
-//			login = "thiburj";
-//			password = "0802023468P";
+			url = "jdbc:mysql://infolimon.iutmontp.univ-montp2.fr:3306/bertrandm";
 			login = "bertrandm";
 			password = "2805003653P";
-
 			cn = DriverManager.getConnection(url, login, password);
 			
 		} catch (Exception e) {
@@ -36,11 +32,10 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		}
 	}
 
-
 	@Override
 	public boolean creerProduit(I_Produit p) {
 		try {
-			pst = cn.prepareStatement("INSERT INTO Produit (idProduit, nomProduit, stockProduit  prixHTProduit) Values ( ? , ? , ? , ?)");
+			pst = cn.prepareStatement("INSERT INTO Produit (nomProduit, stockProduit, prixHTProduit) Values ( ? , ? , ?)");
 			pst.setString(1, p.getNom());
 			pst.setInt(2, p.getQuantite());
 			pst.setDouble(3, p.getPrixUnitaireHT());
@@ -51,7 +46,6 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		}
 		return false;
 	}
-
 
 	@Override
 	public boolean miseAjourProduit(I_Produit p) {
@@ -70,7 +64,6 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		return false;
 	}
 
-
 	@Override
 	public boolean supprimerProduit(I_Produit p) {
 		try {
@@ -83,7 +76,6 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		}
 		return false;
 	}
-
 
 	@Override
 	public I_Produit recupererProduit(String nom) {
@@ -107,7 +99,6 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		return null;
 	}
 
-
 	@Override
 	public List<I_Produit> recupererProduits() {
 		try {
@@ -128,5 +119,5 @@ public class ProduitDAO_Oracle  implements I_ProduitDAO{
 		}
 		return null;
 	}
-	
+
 }

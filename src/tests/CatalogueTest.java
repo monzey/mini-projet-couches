@@ -19,7 +19,7 @@ public class CatalogueTest {
 	public void setUp() {
 		cat = new Catalogue();
 //		Si votre Catalogue est un Singleton, il faut changer la ligne pr�c�dente puis vider le Catalogue avec la m�thode clear() comme indiqu� � la ligne suivante
-//		cat.clear();
+		cat.clear();
 	}
 	
 	@Test
@@ -466,7 +466,7 @@ public class CatalogueTest {
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 12.67, 1);
 		cat.addProduit("Nuts", 12.67, 1);
-		assertEquals("c'est le montant total TTC qu'il faut arrondir, pas les prix TTC des diff�rents produits",150.41,cat.getMontantTotalTTC(),0);
+		assertEquals("c'est le montant total TTC qu'il faut arrondir, pas les prix TTC des différents produits",150.41,cat.getMontantTotalTTC(),0);
 	}
 	
 	@Test

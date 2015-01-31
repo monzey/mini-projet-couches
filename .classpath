@@ -3,6 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/Eclipse Workspace/miniProjetCouche/jdom.jar"/>
+	<classpathentry kind="lib" path="/home/monzey/Workspace/eclipse/projet-couches/jdom.jar"/>
+	<classpathentry kind="lib" path="/home/monzey/Downloads/Espace  Claroline.DOCTDDEPINFO.Exercice_V_02/classes111.jar"/>
+	<classpathentry kind="lib" path="/home/monzey/Downloads/Espace  Claroline.DOCTDDEPINFO.Exercice_V_02/mysql-connector-java-5.1.5-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

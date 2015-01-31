@@ -1,18 +1,28 @@
 package entities;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
+import persistence.I_ProduitDAO;
+import persistence.ProduitDAOFactory;
 
 public class Catalogue implements I_Catalogue {
 	
 	
-	private static DecimalFormat df = new DecimalFormat("0.00");
+	private static DecimalFormat df;
 	private ArrayList<I_Produit> lesProduits;
+	I_ProduitDAO dao;
 
 	public Catalogue() {
-		lesProduits = new ArrayList<I_Produit>();
+		this.dao = ProduitDAOFactory.createProduitDAO(ProduitDAOFactory.XML);
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRANCE);
+		df = new DecimalFormat("0.00", otherSymbols);
+		//aggressive loading
+		lesProduits = new ArrayList<I_Produit>(this.dao.recupererProduits());
 	}
 	
 	public ArrayList<I_Produit> getProduits(){
@@ -24,6 +34,7 @@ public class Catalogue implements I_Catalogue {
 		if (produitIsValid(produit)){
 			if (!lesProduits.contains(produit)) {
 				lesProduits.add(produit);
+				this.dao.creerProduit(produit);
 				return true;
 			}
 		}
@@ -37,6 +48,8 @@ public class Catalogue implements I_Catalogue {
 		if (produitIsValid(newProduit)){
 			if (!lesProduits.contains(newProduit)) {
 				lesProduits.add(newProduit);
+				System.out.println(newProduit);
+				this.dao.creerProduit(newProduit);
 				return true;
 			}
 		}
@@ -51,6 +64,7 @@ public class Catalogue implements I_Catalogue {
 			for (I_Produit i_Produit : l) {
 				if (produitIsValid(i_Produit)) {
 					lesProduits.add(i_Produit);
+					this.dao.creerProduit(i_Produit);
 					i++;
 				}
 			}
@@ -65,10 +79,10 @@ public class Catalogue implements I_Catalogue {
 
 	@Override
 	public boolean removeProduit(String nom) {
-		//TODO verifier degueullassité
 		int indexProdASuppr = getProduit(nom);
 		if (indexProdASuppr >=0 ){
-			return (lesProduits.remove(indexProdASuppr) != null ? true : false);
+			this.dao.supprimerProduit(lesProduits.get(indexProdASuppr));
+			return (lesProduits.remove(indexProdASuppr)  != null ? true : false);
 		}
 		return false;
 
@@ -79,6 +93,7 @@ public class Catalogue implements I_Catalogue {
 		
 		int indexProd = getProduit(nomProduit);
 		if (indexProd >= 0 ){
+			this.dao.miseAjourProduit(lesProduits.get(indexProd));
 			return lesProduits.get(indexProd).ajouter(qteAchetee);
 		}
 		return false;
@@ -89,6 +104,7 @@ public class Catalogue implements I_Catalogue {
 
 		int indexProd = getProduit(nomProduit);
 		if (indexProd >= 0 ){
+			this.dao.miseAjourProduit(lesProduits.get(indexProd));
 			return lesProduits.get(indexProd).enlever(qteVendue);
 		}
 		return false;

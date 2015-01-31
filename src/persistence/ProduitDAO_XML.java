@@ -12,7 +12,7 @@ import entities.I_Produit;
 import entities.Produit;
 
 
-public class ProduitDAO_XML implements I_ProduitDAO{
+public class ProduitDAO_XML {
 	private String uri = "Produits.xml";
 	private Document doc;
 
@@ -21,8 +21,7 @@ public class ProduitDAO_XML implements I_ProduitDAO{
 		try {
 			doc = sdoc.build(uri);
 		} catch (Exception e) {
-			System.out.println("erreur construction arbre JDOM : ");
-			e.printStackTrace();
+			System.out.println("erreur construction arbre JDOM");
 		}
 	}
 
