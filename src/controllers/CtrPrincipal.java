@@ -1,36 +1,57 @@
 package controllers;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import entities.Catalogue;
+import entities.EnsembleCatalogues;
 import entities.I_Catalogue;
 
 public class CtrPrincipal{
 
-	private I_Catalogue cat;
+	private EnsembleCatalogues ensCatalogues;
 	
 	public CtrPrincipal() {
-		// TODO Auto-generated constructor stub
-		cat = new Catalogue();
+		this.ensCatalogues = new EnsembleCatalogues();
+	}
+
+	public String[] getNomsCatalogues() {
+		return this.ensCatalogues.getNomsCatalogues();
+	}
+
+	public int getNbCatalogues() {
+		return this.ensCatalogues.getNbCatalogues();
+	}
+
+	public String[] getNomsCataloguesAvecNbProduits() {
+		return this.ensCatalogues.getNbCataloguesAvecNbProduits();
+	}
+
+	public ArrayList<I_Catalogue> getCatalogues() {
+		return this.ensCatalogues.getCatalogues();
+	}
+
+
+	public boolean addCatalogue(String nomCatalogue) {
+		return this.ensCatalogues.addCatalogue(nomCatalogue);
+	}
+
+	public CtrCatalogue createCtrCatalogue(String nomCatalogue) {
+		I_Catalogue catalogue = new Catalogue(nomCatalogue);
+		this.ensCatalogues.addCatalogue(catalogue);
+		return new CtrCatalogue(this.ensCatalogues.getCatalogue(catalogue));
 	}
 	
-	public CtrProduit createCtrProduit(){
-		return new CtrProduit(this.cat);
+	public I_Catalogue getCatalogue(String nomCatalogue){
+		I_Catalogue catalogue = new Catalogue(nomCatalogue);
+		return this.ensCatalogues.getCatalogue(catalogue);
 	}
+
+	public boolean removeCatalogue(String nomCatalogue) {
+		return this.ensCatalogues.removeCatalogue(nomCatalogue);
+	}
+
 	
-	public CtrStocks createCtrStcks(){
-		return new CtrStocks(this.cat);
-	}
-	
-	public CtrAchatVente createCtrAchVent(){
-		return new CtrAchatVente(this.cat);
-	}
-	
-	public I_Catalogue getCatalogue(){
-		return this.cat;
-	}
-	
-	public void setCatalogue(I_Catalogue catalogue){
-		this.cat = catalogue;
-	}
 	
 
 }

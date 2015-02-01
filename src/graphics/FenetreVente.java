@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.CtrAchatVente;
-import controllers.CtrPrincipal;
+import controllers.CtrCatalogue;
 
 public class FenetreVente extends JFrame implements ActionListener {
 
@@ -14,7 +14,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 	private JComboBox<String> combo;
 	private CtrAchatVente ctrlAchVent;
 
-	public FenetreVente(String[] lesProduits, CtrPrincipal ctr) {
+	public FenetreVente(String[] lesProduits, CtrCatalogue ctr) {
 		this.ctrlAchVent = ctr.createCtrAchVent();
 		setTitle("Vente");
 		setBounds(500, 500, 200, 125);

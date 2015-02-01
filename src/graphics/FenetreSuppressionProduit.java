@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import controllers.CtrPrincipal;
+import controllers.CtrCatalogue;
 import controllers.CtrProduit;
 
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
@@ -14,7 +14,7 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 	
 	private CtrProduit ctrlProd;
 	
-	public FenetreSuppressionProduit(String lesProduits[], CtrPrincipal ctr) {
+	public FenetreSuppressionProduit(String lesProduits[], CtrCatalogue ctr) {
 		
 		this.ctrlProd = ctr.createCtrProduit();
 		setTitle("Suppression produit");

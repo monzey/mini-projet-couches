@@ -4,6 +4,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import persistence.I_ProduitDAO;
+import persistence.ProduitDAOFactory;
+import persistence.ProduitDAO_Mysql;
+
 public class Produit implements I_Produit {
 	private static double tauxTVA = 0.2;
 	private static DecimalFormat df;
@@ -11,8 +15,12 @@ public class Produit implements I_Produit {
 	private String nom;
 	private int quantiteStock;
 	private double prixUnitaireHT;
+	
+	private I_Catalogue catalogue;
+	
 
-	public Produit(String nomProduit, double prixUnitaireHTProduit,int quantiteInitiale) {
+	public Produit(String nomProduit, double prixUnitaireHTProduit,int quantiteInitiale, I_Catalogue catalogue) {
+		this.catalogue = catalogue;
 		this.nom = nomProduit;
 		this.quantiteStock = quantiteInitiale;
 		this.prixUnitaireHT = prixUnitaireHTProduit;

@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import persistence.CatalogueDAO_Mysql;
+import persistence.DAOAbstractFactory;
+import persistence.I_CatalogueDAO;
 import persistence.I_ProduitDAO;
 import persistence.ProduitDAOFactory;
 
@@ -14,15 +17,21 @@ public class Catalogue implements I_Catalogue {
 	
 	
 	private static DecimalFormat df;
+	
 	private ArrayList<I_Produit> lesProduits;
-	I_ProduitDAO dao;
-
-	public Catalogue() {
-		this.dao = ProduitDAOFactory.createProduitDAO(ProduitDAOFactory.XML);
+	private String nom;
+	
+	private I_ProduitDAO daoPrd;
+	private I_CatalogueDAO daoCat;
+	
+	public Catalogue(String nom) {
+		this.daoPrd = DAOAbstractFactory.getInstance().createProduitDAO();
+		this.daoCat = DAOAbstractFactory.getInstance().createCatalogueDAO();
 		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRANCE);
 		df = new DecimalFormat("0.00", otherSymbols);
+		this.nom = nom;
 		//aggressive loading
-		lesProduits = new ArrayList<I_Produit>(this.dao.recupererProduits());
+		lesProduits = new ArrayList<I_Produit>(this.daoPrd.recupererProduits(this));
 	}
 	
 	public ArrayList<I_Produit> getProduits(){
@@ -33,9 +42,7 @@ public class Catalogue implements I_Catalogue {
 	public boolean addProduit(I_Produit produit) {
 		if (produitIsValid(produit)){
 			if (!lesProduits.contains(produit)) {
-				lesProduits.add(produit);
-				this.dao.creerProduit(produit);
-				return true;
+				return this.daoPrd.creerProduit(produit, this) && lesProduits.add(produit);
 			}
 		}
 		return false;
@@ -44,13 +51,10 @@ public class Catalogue implements I_Catalogue {
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
 
-		I_Produit newProduit = new Produit(nom,prix,qte);
+		I_Produit newProduit = new Produit(nom,prix,qte, this);
 		if (produitIsValid(newProduit)){
 			if (!lesProduits.contains(newProduit)) {
-				lesProduits.add(newProduit);
-				System.out.println(newProduit);
-				this.dao.creerProduit(newProduit);
-				return true;
+				return this.daoPrd.creerProduit(newProduit, this) && lesProduits.add(newProduit);
 			}
 		}
 
@@ -64,7 +68,7 @@ public class Catalogue implements I_Catalogue {
 			for (I_Produit i_Produit : l) {
 				if (produitIsValid(i_Produit)) {
 					lesProduits.add(i_Produit);
-					this.dao.creerProduit(i_Produit);
+					this.daoPrd.creerProduit(i_Produit, this);
 					i++;
 				}
 			}
@@ -81,7 +85,7 @@ public class Catalogue implements I_Catalogue {
 	public boolean removeProduit(String nom) {
 		int indexProdASuppr = getProduit(nom);
 		if (indexProdASuppr >=0 ){
-			this.dao.supprimerProduit(lesProduits.get(indexProdASuppr));
+			this.daoPrd.supprimerProduit(lesProduits.get(indexProdASuppr), this);
 			return (lesProduits.remove(indexProdASuppr)  != null ? true : false);
 		}
 		return false;
@@ -93,7 +97,7 @@ public class Catalogue implements I_Catalogue {
 		
 		int indexProd = getProduit(nomProduit);
 		if (indexProd >= 0 ){
-			this.dao.miseAjourProduit(lesProduits.get(indexProd));
+			this.daoPrd.miseAjourProduit(lesProduits.get(indexProd), this);
 			return lesProduits.get(indexProd).ajouter(qteAchetee);
 		}
 		return false;
@@ -104,7 +108,7 @@ public class Catalogue implements I_Catalogue {
 
 		int indexProd = getProduit(nomProduit);
 		if (indexProd >= 0 ){
-			this.dao.miseAjourProduit(lesProduits.get(indexProd));
+			this.daoPrd.miseAjourProduit(lesProduits.get(indexProd), this);
 			return lesProduits.get(indexProd).enlever(qteVendue);
 		}
 		return false;
@@ -151,5 +155,34 @@ public class Catalogue implements I_Catalogue {
 		I_Produit produit = new Produit(nom);
 		return lesProduits.indexOf(produit);
 	}
+
+	@Override
+	public String getNom() {
+		return this.nom;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if (o instanceof Catalogue){
+			if ( ((Catalogue)o).getNom().equals(this.getNom())){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int getNbProduits() {
+		return this.daoCat.getNbProduits(this);
+	}
+	
+	public I_CatalogueDAO getCatalogueDAO(){
+		return this.daoCat;
+	}
+	
+	public I_ProduitDAO getProduitDAO(){
+		return this.daoPrd;
+	}
+
 
 }

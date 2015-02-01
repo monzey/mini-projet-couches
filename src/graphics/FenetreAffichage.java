@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.CtrAchatVente;
-import controllers.CtrPrincipal;
+import controllers.CtrCatalogue;
 import controllers.CtrStocks;
 
 public class FenetreAffichage extends JFrame implements ActionListener {
@@ -14,7 +14,7 @@ public class FenetreAffichage extends JFrame implements ActionListener {
 
 	private CtrStocks ctrlStcks;
 	
-	public FenetreAffichage(CtrPrincipal ctr) {
+	public FenetreAffichage(CtrCatalogue ctr) {
 
 		this.ctrlStcks = ctr.createCtrStcks();
 		setTitle("Affichage");

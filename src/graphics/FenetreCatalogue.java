@@ -2,32 +2,36 @@ package graphics;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
+import controllers.CtrCatalogue;
 import controllers.CtrPrincipal;
 import controllers.CtrStocks;
+import entities.I_Catalogue;
 
 
 
-public class FenetrePrincipale extends JFrame implements ActionListener,
+public class FenetreCatalogue extends JFrame implements ActionListener,
 		WindowListener {
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
-//	private JButton btNouvelleCategorie;
-//	private JButton btSupprimerCategorie;
+	private JButton btNouvelleCategorie;
+	private JButton btSupprimerCategorie;
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
 	
 
-	protected CtrPrincipal ctrl = new CtrPrincipal();
+	protected CtrCatalogue ctrl;
 
 	
-	public FenetrePrincipale() {
+	public FenetreCatalogue(CtrPrincipal ctr, String nomCatalogue) {
 		
-		setTitle("exercice Produits");
+		this.ctrl = ctr.createCtrCatalogue(nomCatalogue);
+		setTitle(nomCatalogue);
 		setBounds(500, 500, 320, 250);
 		JPanel panAffichage = new JPanel();
 		JPanel panNouveauSupprimerProduit = new JPanel();
@@ -115,8 +119,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	
 	
-	public static void main(String[] args) {
-		new FenetrePrincipale();
-	}
+//	public static void main(String[] args) {
+//		new FenetrePrincipale("Jean");
+//	}
 
 }

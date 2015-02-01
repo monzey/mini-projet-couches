@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.CtrAchatVente;
-import controllers.CtrPrincipal;
+import controllers.CtrCatalogue;
 import controllers.CtrProduit;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
@@ -20,7 +20,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit(CtrPrincipal ctr) {	
+	public FenetreNouveauProduit(CtrCatalogue ctr) {	
 
 		this.ctrlProd = ctr.createCtrProduit();
 		setTitle("Creation Produit");
